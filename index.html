@@ -12,8 +12,13 @@ function run() {
     velocities[3] = 7;
     velocities[4] = 13;
 
-    var resultSet = plan(velocities, 5, 1000);
-    document.getElementById('result').innerHTML = resultSet;
+    var resultSet = plan(velocities, 5, 100000);
+    var m = mean(resultSet);
+    var sd = standardDev(resultSet);
+    
+    document.getElementById('result').innerHTML = "mean: " + m + " - sd: " + sd;
+
+
 }
 </script>
 </head>
