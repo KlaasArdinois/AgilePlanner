@@ -1,13 +1,12 @@
 function plan(velocities, sprints, cycles) {
     var resultSet = new Array();
-    for(i = 0; i < cycles; i++) {
+    for(var i = 0; i < cycles; i++) {
 
     	var totalPoints = 0;
-        for(j = 0; j < sprints; j++) {
-             var index = math.randomInt(0,velocities.length-1);
+        for(var j = 0; j < sprints; j++) {
+             var index = Math.floor(Math.random()*velocities.length);
              totalPoints += velocities[index];         
         }
-
         resultSet[i] = totalPoints;
    
     }
@@ -28,6 +27,5 @@ function standardDev(input) {
     for(i = 0; i < input.length; i++) {
         squaredDifSum += Math.pow((input[i] - m), 2);
     }
-
     return Math.sqrt(squaredDifSum/input.length);
 }
