@@ -2,61 +2,48 @@
 <head>
 <title>Agile Planner - Ardonio Ltd </title>
 <script src="Lib/planner.js" type="text/javascript"></script>
+<script src="Lib/chart.js" type="text/javascript"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <script src="http://code.highcharts.com/highcharts.js"></script>
 <script type="text/javascript">
-var frequency = new Array();
-function run() { 
-    var resultSet = new Array();
-    var velocities = new Array();
-    velocities[0] = 10;
-    velocities[1] = 12;
-    velocities[2] = 9;
-    velocities[3] = 7;
-    velocities[4] = 13;
+function checkRunChart() {
+    if(checkInput()) {
+        var sprints = 5;
+        var velocities = new Array();
+        velocities[0] = 10;
+        velocities[1] = 12;
+        velocities[2] = 9;
+        velocities[3] = 7;
+        velocities[4] = 13;
 
-    resultSet = plan(velocities, 5, 1000000);
-    frequency = createFrequencyMap(resultSet);
-    var m = mean(resultSet);
-    var sd = standardDev(resultSet);
-    
-
-
-    document.getElementById('result').innerHTML = "mean: " + m + " - sd: " + sd;
-
-    document.getElementById('result').innerHTML += "<br /> "+ frequency;
+        var frequency = run(velocities, sprints);
+        var chart = getChart(frequency); 
+        $('#chartResult').highcharts(chart);
+    }
 }
 
-function chartIt() {    
-
-$(function () { 
-    $('#chartResult').highcharts({
-        title: {
-            text: 'Frequency of velocity'
-        },
-        xAxis: {
-            title: {
-                text: 'Frequency'
-            }
-        },
-        yAxis: {
-            title: {
-                text: 'Velocity'
-            }
-        },
-        series:[{
-            name:'Frequency of Velocity',
-            data: frequency
-        }],
-    });
-});
-};
+function checkInput() {
+    return true;
+}
 
 </script>
 </head>
-<body onload="run()">
-<button onclick="chartIt()">go</button>
-<div id="result"></div>
-<div id="chartResult"></div>
+<body>
+<div id="input">
+    <input type=text id="inputVelocities" value="10,11,9,10,11"></input>
+    <input type=text id="sprintsAhead" value="5"></input>
+    <input type=button id="planIt" onclick="checkRunChart()" value="Go!"></input>
+</div>
+
+<div id="chartResult">
+</div>
+
+<div id="result">
+    Key numbers go here
+</div>
+
+<div id="landing">
+    Stay in touch!
+</div>
 </body>
 <html>
