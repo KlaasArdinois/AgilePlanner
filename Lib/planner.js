@@ -29,3 +29,23 @@ function standardDev(input) {
     }
     return Math.sqrt(squaredDifSum/input.length);
 }
+
+function createFrequencyMap(inputArray) {
+    var resultSet = new Array();
+
+    for(var i = 0; i < inputArray.length; i++) {
+        if(typeof resultSet[inputArray[i]] === 'undefined') {
+            resultSet[inputArray[i]] = 1;
+        } else {
+            resultSet[inputArray[i]]++;
+        }
+    }
+
+    for(var i = 0; i < resultSet.length; i++) {
+        if(typeof resultSet[i] === 'undefined') {
+            resultSet[i] = 0;
+        }
+    }
+    
+    return resultSet;
+}
