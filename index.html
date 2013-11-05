@@ -11,10 +11,12 @@ function checkRunChart() {
         var sprints = 5;
         var velocities = new Array();
         velocities[0] = 10;
-        velocities[1] = 12;
+        velocities[1] = 11;
         velocities[2] = 9;
-        velocities[3] = 7;
-        velocities[4] = 13;
+        velocities[3] = 10;
+        velocities[4] = 11;
+
+
 
         var frequency = run(velocities, sprints);
         var resultSet = chopLeadingZeros(frequency);
@@ -22,7 +24,15 @@ function checkRunChart() {
         $('#chartResult').highcharts(chart);
         var seriesMean = mean(frequency);
         var seriesSD = standardDev(frequency);
-        $('#result').text('mean: '+ seriesMean + ' - SD: ' + seriesSD);
+
+
+        $('#mean').html('<h2>mean</h2><p class="resultNumber">'+ seriesMean.toFixed(2) +'</p>');
+        $('#-3sigmaResult').html('<h2>-3s</h2><p class="resultNumber">'+ (seriesMean - 3 * seriesSD).toFixed(2)+'</p>');
+        $('#-2sigmaResult').html('<h2>-3s</h2><p class="resultNumber">'+ (seriesMean - 2 * seriesSD).toFixed(2)+'</p>');
+        $('#-1sigmaResult').html('<h2>-3s</h2><p class="resultNumber">'+ (seriesMean - seriesSD).toFixed(2)+'</p>');
+        $('#1sigmaResult').html('<h2>-3s</h2><p class="resultNumber">'+ (seriesMean + seriesSD).toFixed(2)+'</p>');
+        $('#2sigmaResult').html('<h2>-3s</h2><p class="resultNumber">'+ (seriesMean + 2 * seriesSD).toFixed(2)+'</p>');
+        $('#3sigmaResult').html('<h2>-3s</h2><p class="resultNumber">'+ (seriesMean + 3 * seriesSD).toFixed(2)+'</p>');
     }
 }
 
@@ -39,13 +49,16 @@ function checkInput() {
     <input type=button id="planIt" onclick="checkRunChart()" value="Go!"></input>
 </div>
 
-<div id="chartResult">
-</div>
-
 <div id="result">
-    Key numbers go here
+    <div id="chartResult"></div>
+    <div id="-3sigmaResult"></div>
+    <div id="-2sigmaResult"></div>
+    <div id="-1sigmaResult"></div>
+    <div id="mean"></div>
+    <div id="1sigmaResult"></div>
+    <div id="2sigmaResult"></div>
+    <div id="3sigmaResult"></div>
 </div>
-
 <div id="landing">
     Stay in touch!
 </div>

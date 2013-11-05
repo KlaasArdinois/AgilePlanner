@@ -21,23 +21,27 @@ function plan(velocities, sprints, cycles) {
 
 function mean(input) {
     var sum = 0;
+    var elements = 0;
     
     for(i = 0; i < input.length; i++) {
         sum += input[i] * i;
+        elements += input[i];
     }
     
-    return sum/input.length;
+    return sum/elements;
 }
 
 function standardDev(input) {
     var m = mean(input);
     var squaredDifSum = 0;
+    var elements = 0;
     
     for(i = 0; i < input.length; i++) {
-        squaredDifSum += Math.pow((input[i] - m), 2);
+        squaredDifSum += (Math.pow((i - m), 2)) * input[i];
+        elements += input[i];
     }
     
-    return Math.sqrt(squaredDifSum/input.length);
+    return Math.sqrt(squaredDifSum/elements);
 }
 
 function createFrequencyMap(inputArray) {
