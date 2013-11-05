@@ -23,7 +23,7 @@ function mean(input) {
     var sum = 0;
     
     for(i = 0; i < input.length; i++) {
-        sum += input[i];
+        sum += input[i] * i;
     }
     
     return sum/input.length;
@@ -59,3 +59,25 @@ function createFrequencyMap(inputArray) {
     
     return resultSet;
 }
+
+function chopLeadingZeros(inputArray) {
+    var offset = 0;
+    leadingZero = true;
+    if(inputArray[0] != 0) {
+        leadingZero = false;
+    }
+    resultSet = new Array();
+
+    var i = 0
+    while(inputArray[i] == 0) {
+        i++;
+    }
+    
+    offset = i;
+    for(i; i < inputArray.length; i++) {
+        resultSet.push(inputArray[i]);
+    }
+    return { offset: offset, resultSet: resultSet};
+}
+
+

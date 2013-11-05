@@ -17,8 +17,12 @@ function checkRunChart() {
         velocities[4] = 13;
 
         var frequency = run(velocities, sprints);
-        var chart = getChart(frequency); 
+        var resultSet = chopLeadingZeros(frequency);
+        var chart = getChart(resultSet.resultSet, resultSet.offset); 
         $('#chartResult').highcharts(chart);
+        var seriesMean = mean(frequency);
+        var seriesSD = standardDev(frequency);
+        $('#result').text('mean: '+ seriesMean + ' - SD: ' + seriesSD);
     }
 }
 
