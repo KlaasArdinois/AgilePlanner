@@ -1,0 +1,19 @@
+.slider { 
+    position: relative; 
+    overflow: auto;
+    padding: 0;
+    margin: 0;
+ }
+.slider li { 
+    list-style: none;
+ }
+.slider ul li { float: left; }
+
+.slide {
+    text-align: center;
+    height: 100%;
+}
+
+.chart {
+    width: 90%;
+}

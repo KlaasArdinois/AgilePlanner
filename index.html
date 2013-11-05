@@ -1,22 +1,19 @@
 <html>
 <head>
 <title>Agile Planner - Ardonio Ltd </title>
+
+<link rel="stylesheet" type="text/css" href="Lib/planner.css">
 <script src="Lib/planner.js" type="text/javascript"></script>
 <script src="Lib/chart.js" type="text/javascript"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://unslider.com/unslider.min.js"></script>
 <script type="text/javascript">
 function checkRunChart() {
-    if(checkInput()) {
-        var sprints = 5;
-        var velocities = new Array();
-        velocities[0] = 10;
-        velocities[1] = 11;
-        velocities[2] = 9;
-        velocities[3] = 10;
-        velocities[4] = 11;
-
-
+    var input = false;
+    if(input = checkInput()) {
+        var sprints = input.sprints;
+        var velocities = input.velocities;
 
         var frequency = run(velocities, sprints);
         var resultSet = chopLeadingZeros(frequency);
@@ -26,31 +23,52 @@ function checkRunChart() {
         var seriesSD = standardDev(frequency);
 
 
-        $('#mean').html('<h2>mean</h2><p class="resultNumber">'+ seriesMean.toFixed(2) +'</p>');
-        $('#-3sigmaResult').html('<h2>-3s</h2><p class="resultNumber">'+ (seriesMean - 3 * seriesSD).toFixed(2)+'</p>');
-        $('#-2sigmaResult').html('<h2>-3s</h2><p class="resultNumber">'+ (seriesMean - 2 * seriesSD).toFixed(2)+'</p>');
-        $('#-1sigmaResult').html('<h2>-3s</h2><p class="resultNumber">'+ (seriesMean - seriesSD).toFixed(2)+'</p>');
-        $('#1sigmaResult').html('<h2>-3s</h2><p class="resultNumber">'+ (seriesMean + seriesSD).toFixed(2)+'</p>');
-        $('#2sigmaResult').html('<h2>-3s</h2><p class="resultNumber">'+ (seriesMean + 2 * seriesSD).toFixed(2)+'</p>');
-        $('#3sigmaResult').html('<h2>-3s</h2><p class="resultNumber">'+ (seriesMean + 3 * seriesSD).toFixed(2)+'</p>');
+
+        $('#mean').html('<h2 class="resultNumber">mean</h2><p class="resultNumber">'+ seriesMean.toFixed(2) +'</p>');
+        $('#-3sigmaResult').html('<h2 class="resultNumber">-3s</h2><p class="resultNumber">'+ (seriesMean - 3 * seriesSD).toFixed(2)+'</p>');
+        $('#-2sigmaResult').html('<h2 class="resultNumber">-2s</h2><p class="resultNumber">'+ (seriesMean - 2 * seriesSD).toFixed(2)+'</p>');
+        $('#-1sigmaResult').html('<h2 class="resultNumber">-s</h2><p class="resultNumber">'+ (seriesMean - seriesSD).toFixed(2)+'</p>');
+        $('#1sigmaResult').html('<h2 class="resultNumber">+s</h2><p class="resultNumber">'+ (seriesMean + seriesSD).toFixed(2)+'</p>');
+        $('#2sigmaResult').html('<h2 class="resultNumber">+2s</h2><p class="resultNumber">'+ (seriesMean + 2 * seriesSD).toFixed(2)+'</p>');
+        $('#3sigmaResult').html('<h2 class="resultNumber">+3s</h2><p class="resultNumber">'+ (seriesMean + 3 * seriesSD).toFixed(2)+'</p>');
     }
 }
 
 function checkInput() {
-    return true;
+    resultObj = false;
+    allgood = true;
+    
+    if($('#sprintsAhead').val() == "" || $('#inputVelocities').val() == "") {
+        allgood = false;
+        $('#validform').html('Fill in mandatory fields');
+    }
+
+    if(allgood) {
+        resultObj = {
+            sprints:  parseInt($('#sprintsAhead').val()),
+            velocities: $('#inputVelocities').val().split(',').map(function(x){return parseFloat(x);})
+        }
+    }
+    return resultObj;
 }
 
 </script>
 </head>
 <body>
-<div id="input">
+<div class="slider">
+<ul>
+<li>
+<div class="slide" id="input">
+    <div id="validform"></div>
     <input type=text id="inputVelocities" value="10,11,9,10,11"></input>
     <input type=text id="sprintsAhead" value="5"></input>
     <input type=button id="planIt" onclick="checkRunChart()" value="Go!"></input>
 </div>
+</li>
 
-<div id="result">
-    <div id="chartResult"></div>
+<li>
+<div class="slide" id="result">
+    <div class="chart" id="chartResult"></div>
     <div id="-3sigmaResult"></div>
     <div id="-2sigmaResult"></div>
     <div id="-1sigmaResult"></div>
@@ -59,8 +77,19 @@ function checkInput() {
     <div id="2sigmaResult"></div>
     <div id="3sigmaResult"></div>
 </div>
-<div id="landing">
+</li>
+
+<li>
+<div class="slide" id="landing">
     Stay in touch!
 </div>
+</li>
+</ul>
+</div>
+<script type="text/javascript">
+$(function() {
+        $('.slider').unslider();
+});
+</script>
 </body>
 <html>
