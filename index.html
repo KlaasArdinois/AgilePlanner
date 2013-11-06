@@ -1,60 +1,18 @@
 <html>
 <head>
 <title>Agile Planner - Ardonio Ltd </title>
-
 <link rel="stylesheet" type="text/css" href="Lib/planner.css">
 <link rel="stylesheet" id="attorney_style-css" href="http://www.ardonio.com/wp-content/themes/attorney/style.css?ver=3.7.1" type="text/css" media="all">
 <script src="Lib/planner.js" type="text/javascript"></script>
 <script src="Lib/chart.js" type="text/javascript"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <script src="http://code.highcharts.com/highcharts.js"></script>
-<script type="text/javascript">
-function checkRunChart() {
-    var input = false;
-    if(input = checkInput()) {
-        var sprints = input.sprints;
-        var velocities = input.velocities;
-
-        var frequency = run(velocities, sprints);
-        var resultSet = chopLeadingZeros(frequency);
-        var chart = getChart(resultSet.resultSet, resultSet.offset); 
-        $('#chartResult').highcharts(chart);
-        var seriesMean = mean(frequency);
-        var seriesSD = standardDev(frequency);
-
-
-
-        $('#mean').html('<h2 class="resultNumber">'+ seriesMean.toFixed(2) +'</h2><p class="resultNumber">50%</p>');
-        $('#-3sigmaResult').html('<h2 class="resultNumber">'+ (seriesMean - 3 * seriesSD).toFixed(2)+'</h2><p class="resultNumber">99.87%</p>');
-        $('#-2sigmaResult').html('<h2 class="resultNumber">'+ (seriesMean - 2 * seriesSD).toFixed(2)+'</h2><p class="resultNumber">97.72%</p>');
-        $('#-1sigmaResult').html('<h2 class="resultNumber">'+ (seriesMean - seriesSD).toFixed(2)+'</h2><p class="resultNumber">84.14</p>');
-        $('#1sigmaResult').html('<h2 class="resultNumber">'+ (seriesMean + seriesSD).toFixed(2)+'</h2><p class="resultNumber">15.87%</p>');
-        $('#2sigmaResult').html('<h2 class="resultNumber">'+ (seriesMean + 2 * seriesSD).toFixed(2)+'</h2><p class="resultNumber">2.28%</p>');
-        $('#3sigmaResult').html('<h2 class="resultNumber">'+ (seriesMean + 3 * seriesSD).toFixed(2)+'</h2><p class="resultNumber">0.13%</p>');
-    }
-}
-
-function checkInput() {
-    resultObj = false;
-    allgood = true;
-    
-    if($('#sprintsAhead').val() == "" || $('#inputVelocities').val() == "") {
-        allgood = false;
-        $('#validform').html('Fill in mandatory fields');
-    }
-
-    if(allgood) {
-        resultObj = {
-            sprints:  parseInt($('#sprintsAhead').val()),
-            velocities: $('#inputVelocities').val().split(',').map(function(x){return parseFloat(x);})
-        }
-    }
-    return resultObj;
-}
-
-</script>
+<script src="Lib/functions.js" type="text/javascript"></script>
+<script src="http://platform.linkedin.com/in.js" type="text/javascript"></script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 </head>
 <body>
+
 <div id="inner-header" class="clearfix" style="width:90%; margin-left:50px;">                
     <div id="site-heading">
         <div id="site-title">
@@ -68,20 +26,20 @@ function checkInput() {
     </div>
 </div>
 <div class="nav subheader" id="nav">
-<a href="#" onclick="">input</a> &nbsp;&nbsp; 
-<a href="#" onclick="">results</a> &nbsp;&nbsp;
-<a href="#" onclick="">info</a>
+<a href="#" onclick="current = showHide('input', current);">input</a> &nbsp;&nbsp; 
+<a href="#" onclick="current = showHide('results', current);">results</a> &nbsp;&nbsp;
+<a href="#" onclick="current = showHide('landing',current);">info</a>
 </div>
 <div class="subheader slide" id="input">
-    <div id="validform"></div>
+    <div id="validform" class="formerror"></div>
     <p>Achieved velocities: <input type=text id="inputVelocities" value="10,11,9,10,11"></input></p>
     <p>&nbsp;</p>
     <p>Sprints ahead: <input type=text id="sprintsAhead" value="5"></input><p>
     <p>&nbsp;</p>
-    <input type=submit class="btn" id="planIt" onclick="checkRunChart()" value="Go!"></input>
+    <input type=submit class="btn" id="planIt" onclick="if(checkInput()) { current = showHide('results',current);checkRunChart();}" value="Go!"></input>
 </div>
 
-<div class="slide">
+<div class="slide" id="results">
     <div class="chart" id="chartResult"><p class="subheader">The results will show up here</p></div>
     <div class="sigmaBox1" id="-3sigmaResult"></div>
     <div class="sigmaBox" id="-2sigmaResult"></div>
@@ -94,17 +52,20 @@ function checkInput() {
 
 <div class="slide" id="landing">
 <p class="subheader">
-This tool is accompanied by <a href="#">this post</a> on the blog.<br />
+This tool is accompanied by <a href="http://www.ardonio.com/2013/11/06/planning-beyond-a-few-sprints/">this post</a> on the blog.<br /><br />
 You are free to use and modify it at your own risk, the code (which admittedly needs cleaning) can be found <a href="https://github.com/KlaasArdinois/AgilePlanner" target="_blank">here</a>.
 </p>
 <div id="sharebuttons" style="width:100%; text-align:center;"> 
 <p class="subheader">
-The mandatory share buttons<br /><br />
-        <a href="http://www.twitter.com/DonArdonio" class="social-tw" title="http://www.twitter.com/DonArdonio">Twitter</a>
-        <a href="http://www.ardonio.com/feed/" class="social-rs" title="http://www.ardonio.com/feed/">RSS</a>
-        <a href="mailto:info@ardonio.com" class="social-em" title="mailto:info@ardonio.com">Email</a>
+<br />Share it<br /><br />
+<script type="IN/Share"></script>
+<a href="https://twitter.com/intent/tweet/" data-text="Need help planning in Agile? Check the Ardonio agile planner" data-count="none" class="twitter-share-button" data-lang="en">Tweet this</a>
+<a href='#' onclick="window.open( 'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 'facebook-share-dialog', 'width=626,height=436'); return false;"><img src="Lib/fbshare.png" style="width:56px;height:20px;"/></a>
 </p>
 </div>
 </div>
+<script type="text/javascript">
+current = showHide('input','landing');
+</script>
 </body>
 <html>
