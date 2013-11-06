@@ -1,16 +1,8 @@
-.slider { 
-    position: relative; 
-    overflow: auto;
-    padding: 0;
-    margin: 0;
- }
-.slider li { 
-    list-style: none;
- }
-.slider ul li { 
-    float: left;
-    text-align: center; 
+.slide {
+    width: 100%;
+    text-align: center;
 }
+
 
 .subheader{
     font-family: "Lato", Arial, Helvetica, sans-serif;
@@ -69,4 +61,10 @@
     -o-transition: background .2s linear;
     transition: background .2s linear;
     cursor: pointer;
+}
+
+.nav {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
 }
