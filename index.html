@@ -3,6 +3,7 @@
 <title>Agile Planner - Ardonio Ltd </title>
 
 <link rel="stylesheet" type="text/css" href="Lib/planner.css">
+<link rel="stylesheet" id="attorney_style-css" href="http://www.ardonio.com/wp-content/themes/attorney/style.css?ver=3.7.1" type="text/css" media="all">
 <script src="Lib/planner.js" type="text/javascript"></script>
 <script src="Lib/chart.js" type="text/javascript"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
@@ -24,13 +25,13 @@ function checkRunChart() {
 
 
 
-        $('#mean').html('<h2 class="resultNumber">mean</h2><p class="resultNumber">'+ seriesMean.toFixed(2) +'</p>');
-        $('#-3sigmaResult').html('<h2 class="resultNumber">-3s</h2><p class="resultNumber">'+ (seriesMean - 3 * seriesSD).toFixed(2)+'</p>');
-        $('#-2sigmaResult').html('<h2 class="resultNumber">-2s</h2><p class="resultNumber">'+ (seriesMean - 2 * seriesSD).toFixed(2)+'</p>');
-        $('#-1sigmaResult').html('<h2 class="resultNumber">-s</h2><p class="resultNumber">'+ (seriesMean - seriesSD).toFixed(2)+'</p>');
-        $('#1sigmaResult').html('<h2 class="resultNumber">+s</h2><p class="resultNumber">'+ (seriesMean + seriesSD).toFixed(2)+'</p>');
-        $('#2sigmaResult').html('<h2 class="resultNumber">+2s</h2><p class="resultNumber">'+ (seriesMean + 2 * seriesSD).toFixed(2)+'</p>');
-        $('#3sigmaResult').html('<h2 class="resultNumber">+3s</h2><p class="resultNumber">'+ (seriesMean + 3 * seriesSD).toFixed(2)+'</p>');
+        $('#mean').html('<h2 class="resultNumber">'+ seriesMean.toFixed(2) +'</h2><p class="resultNumber">50%</p>');
+        $('#-3sigmaResult').html('<h2 class="resultNumber">'+ (seriesMean - 3 * seriesSD).toFixed(2)+'</h2><p class="resultNumber">99.87%</p>');
+        $('#-2sigmaResult').html('<h2 class="resultNumber">'+ (seriesMean - 2 * seriesSD).toFixed(2)+'</h2><p class="resultNumber">97.72%</p>');
+        $('#-1sigmaResult').html('<h2 class="resultNumber">'+ (seriesMean - seriesSD).toFixed(2)+'</h2><p class="resultNumber">84.14</p>');
+        $('#1sigmaResult').html('<h2 class="resultNumber">'+ (seriesMean + seriesSD).toFixed(2)+'</h2><p class="resultNumber">15.87%</p>');
+        $('#2sigmaResult').html('<h2 class="resultNumber">'+ (seriesMean + 2 * seriesSD).toFixed(2)+'</h2><p class="resultNumber">2.28%</p>');
+        $('#3sigmaResult').html('<h2 class="resultNumber">'+ (seriesMean + 3 * seriesSD).toFixed(2)+'</h2><p class="resultNumber">0.13%</p>');
     }
 }
 
@@ -55,33 +56,56 @@ function checkInput() {
 </script>
 </head>
 <body>
+<div id="inner-header" class="clearfix" style="width:90%; margin-left:50px;">                
+    <div id="site-heading">
+        <div id="site-title">
+            <a href="http://www.ardonio.com/" title="Ardonio Ltd" rel="home">Ardonio Ltd</a></div>
+        <div id="site-description">An Agile planning help</div>
+    </div>
+    <div id="social-media" class="socialmedia">                                
+        <a href="http://www.twitter.com/DonArdonio" class="social-tw" title="http://www.twitter.com/DonArdonio">Twitter</a>
+        <a href="http://www.ardonio.com/feed/" class="social-rs" title="http://www.ardonio.com/feed/">RSS</a>
+        <a href="mailto:info@ardonio.com" class="social-em" title="mailto:info@ardonio.com">Email</a>
+    </div>
+</div>
 <div class="slider">
 <ul>
 <li>
-<div class="slide" id="input">
+<div class="subheader" id="input">
     <div id="validform"></div>
-    <input type=text id="inputVelocities" value="10,11,9,10,11"></input>
-    <input type=text id="sprintsAhead" value="5"></input>
-    <input type=button id="planIt" onclick="checkRunChart()" value="Go!"></input>
+    <p>Achieved velocities: <input type=text id="inputVelocities" value="10,11,9,10,11"></input></p>
+    <p>&nbsp;</p>
+    <p>Sprints ahead: <input type=text id="sprintsAhead" value="5"></input><p>
+    <p>&nbsp;</p>
+    <input type=submit class="btn" id="planIt" onclick="checkRunChart()" value="Go!"></input>
 </div>
 </li>
 
 <li>
-<div class="slide" id="result">
     <div class="chart" id="chartResult"></div>
-    <div id="-3sigmaResult"></div>
-    <div id="-2sigmaResult"></div>
-    <div id="-1sigmaResult"></div>
-    <div id="mean"></div>
-    <div id="1sigmaResult"></div>
-    <div id="2sigmaResult"></div>
-    <div id="3sigmaResult"></div>
-</div>
+    <div class="sigmaBox1" id="-3sigmaResult"></div>
+    <div class="sigmaBox" id="-2sigmaResult"></div>
+    <div class="sigmaBox" id="-1sigmaResult"></div>
+    <div class="sigmaBox" id="mean"></div>
+    <div class="sigmaBox" id="1sigmaResult"></div>
+    <div class="sigmaBox" id="2sigmaResult"></div>
+    <div class="sigmaBox" id="3sigmaResult"></div>
 </li>
 
 <li>
 <div class="slide" id="landing">
-    Stay in touch!
+<div id="social-media" class="socialmedia" style="width:100%; text-align:center;"> 
+<p class="subheader">
+This tool is accompanied by this post on the blog.<br />
+You are free to use and modify it at your own risk, the code (which admittedly needs cleaning) can be found here.
+</p>
+<p class="subheader">
+A penny for (y)our thoughts...<br />
+        <a href="http://www.twitter.com/DonArdonio" class="social-tw" title="http://www.twitter.com/DonArdonio">Twitter</a>
+        <a href="http://www.ardonio.com/feed/" class="social-rs" title="http://www.ardonio.com/feed/">RSS</a>
+        <a href="mailto:info@ardonio.com" class="social-em" title="mailto:info@ardonio.com">Email</a>
+</p>
+</div>
 </div>
 </li>
 </ul>
