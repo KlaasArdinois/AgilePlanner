@@ -8,7 +8,7 @@ function getChart(frequency, offset) {
             },
             xAxis: {
                 title: {
-                    text: 'Frequency'
+                    text: 'Velocity'
                 },
                 labels: {
                     formatter: function() { return this.value;}
@@ -16,7 +16,7 @@ function getChart(frequency, offset) {
             },
             yAxis: {
                 title: {
-                    text: 'Velocity'
+                    text: 'Frequency'
                 }
             },
             plotOptions: {
